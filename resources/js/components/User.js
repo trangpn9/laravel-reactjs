@@ -2,6 +2,22 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
 export default class User extends Component {
+    constructor() {
+        super();
+        this.state = {
+            data: []
+        }
+    }
+
+    componentWillMount() {
+        let $this = this;
+        axios.get('/api/user').then(response => {
+            this.setState ({data: response.data});
+        }).catch(error => {
+            console.log (error)
+        });
+    }
+
     render() {
         return (
             <div>
@@ -16,12 +32,15 @@ export default class User extends Component {
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>John</td>
-                        <td>Doe</td>
-                        <td>john@example.com</td>
-                        <td><button type="button" className="btn btn-primary">Edit</button> || <button type="button" className="btn btn-danger">Delete</button></td>
-                    </tr>      
+                        {this.state.data.map((user, i) => (
+                            <tr key={i}>
+                                <td>{user.id}</td>
+                                <td>{user.name}</td>
+                                <td>{user.email}</td>
+                                <td><button type="button" className="btn btn-primary">Edit</button> || <button type="button" className="btn btn-danger">Delete</button></td>
+                            </tr>
+                            )
+                        )}                          
                     </tbody>
                 </table>                
             </div>
