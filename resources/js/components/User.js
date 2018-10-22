@@ -22,6 +22,8 @@ export default class User extends Component {
         return (
             <div>
                 <h2>User Table</h2>          
+                <a className="btn btn-success" href="#">Add new</a>
+                <hr/>
                 <table className="table table-bordered">
                     <thead>
                     <tr>

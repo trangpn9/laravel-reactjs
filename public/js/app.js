@@ -55879,6 +55879,12 @@ var User = function (_Component) {
                     'User Table'
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'a',
+                    { className: 'btn btn-success', href: '#' },
+                    'Add new'
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('hr', null),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'table',
                     { className: 'table table-bordered' },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
