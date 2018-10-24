@@ -22,7 +22,7 @@ export default class User extends Component {
         return (
             <div>
                 <h2>User Table</h2>          
-                <a className="btn btn-success" href="#">Add new</a>
+                <a className="btn btn-success" href="user/create">Add new</a>
                 <hr/>
                 <table className="table table-bordered">
                     <thead>
@@ -52,5 +52,3 @@ export default class User extends Component {
 if (document.getElementById('app')) {
     ReactDOM.render(<User/>, document.getElementById('app'));
 }
-
-// ReactDOM.render(<User/>, document.getElementById('app'));
