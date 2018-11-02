@@ -9,6 +9,7 @@
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css" />
         <link href="<?php echo e(asset('css/app.css')); ?>" rel="stylesheet" type="text/css"/>
+        <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
         
     </head>
     <body>          
