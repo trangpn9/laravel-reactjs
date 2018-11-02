@@ -8,11 +8,14 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css" />
-        <link href="css/app.css" rel="stylesheet" type="text/css"/>
+        <link href="<?php echo e(asset('css/app.css')); ?>" rel="stylesheet" type="text/css"/>
+        <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
         
     </head>
-    <body>                       
-        <?php echo $__env->yieldContent('content'); ?>
-        <script type="text/javascript" src="js/app.js"></script>
+    <body>          
+        <div class="container">
+            <?php echo $__env->yieldContent('content'); ?>
+        </div>                    
+        <script type="text/javascript" src="<?php echo e(asset('js/app.js')); ?>"></script>
     </body>
 </html>

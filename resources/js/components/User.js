@@ -3,11 +3,10 @@ import ReactDOM from 'react-dom';
 
 export default class User extends Component {
     constructor() {
-        super();
+        super(props);
         this.state = {
             data: []
         }
-        this.deleteUser = this.deleteUser.bind(this);
     }
 
     componentWillMount() {
@@ -16,25 +15,6 @@ export default class User extends Component {
             this.setState ({data: response.data});
         }).catch(error => {
             console.log (error);
-        });
-    }
-
-    deleteUser(e) {
-        console.log(e);
-
-        var $this = this;
-
-        axios.delete('/api/user/'+e.id).then(response => {
-            console.log(response);
-
-            const newState = $this.state.data.slice();
-            newState.splice(newState.indexOf(e), 1);
-            $this.setState ({
-                data: newState
-            });
-
-        }).catch(error => {
-            console.log(error);
         });
     }
 
@@ -55,18 +35,7 @@ export default class User extends Component {
                     </thead>
                     <tbody>                        
                         {this.state.data.map((user, i) => (
-                            <tr key={i}>
-                                <td>{user.id}</td>
-                                <td>{user.name}</td>
-                                <td>{user.email}</td>
-                                <td>
-                                    {/* <form className="frmCeratUser">                    
-                                        <input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" /> */}
-                                        <button type="button" className="btn btn-primary">Edit</button> ||&nbsp;
-                                        <button onClick={(e) => this.deleteUser(user, e)} type="button" className="btn btn-danger">Delete</button>
-                                    {/* </form>          */}
-                                </td>
-                            </tr>
+                                <UserRow key={i} i={i} user={user} object={this} />                
                             )
                         )}                                             
                     </tbody>
@@ -75,6 +44,45 @@ export default class User extends Component {
         );
     }
 }
+
+class UserRow extends React.Component {
+    deleteUser(e, object) {
+        console.log(e);
+
+        var $this = object;
+
+        axios.delete('/api/user/'+e.id).then(response => {
+            console.log(response);
+
+            const newState = $this.state.data.slice();
+            newState.splice(newState.indexOf(e), 1);
+            $this.setState ({
+                data: newState
+            });
+
+        }).catch(error => {
+            console.log(error);
+        });
+    }
+
+    render (){
+        return(
+            <tr key={this.props.i}>
+                <td>{this.props.user.id}</td>
+                <td>{this.props.user.name}</td>
+                <td>{this.props.user.email}</td>
+                <td>
+                    {/* <form className="frmCeratUser">                    
+                        <input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" /> */}
+                        <button type="button" className="btn btn-primary">Edit</button> ||&nbsp;
+                        <button  type="button" className="btn btn-danger">Delete</button>
+                    {/* </form>          */}
+                </td>
+            </tr>
+        );
+    }
+}
+
 if (document.getElementById('app')) {
     ReactDOM.render(<User/>, document.getElementById('app'));
 }

@@ -55848,12 +55848,11 @@ var User = function (_Component) {
     function User() {
         _classCallCheck(this, User);
 
-        var _this = _possibleConstructorReturn(this, (User.__proto__ || Object.getPrototypeOf(User)).call(this));
+        var _this = _possibleConstructorReturn(this, (User.__proto__ || Object.getPrototypeOf(User)).call(this, props));
 
         _this.state = {
             data: []
         };
-        _this.deleteUser = _this.deleteUser.bind(_this);
         return _this;
     }
 
@@ -55865,25 +55864,6 @@ var User = function (_Component) {
             var $this = this;
             axios.get('/api/user').then(function (response) {
                 _this2.setState({ data: response.data });
-            }).catch(function (error) {
-                console.log(error);
-            });
-        }
-    }, {
-        key: 'deleteUser',
-        value: function deleteUser(e) {
-            console.log(e);
-
-            var $this = this;
-
-            axios.delete('/api/user/' + e.id).then(function (response) {
-                console.log(response);
-
-                var newState = $this.state.data.slice();
-                newState.splice(newState.indexOf(e), 1);
-                $this.setState({
-                    data: newState
-                });
             }).catch(function (error) {
                 console.log(error);
             });
@@ -55942,42 +55922,7 @@ var User = function (_Component) {
                         'tbody',
                         null,
                         this.state.data.map(function (user, i) {
-                            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'tr',
-                                { key: i },
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                    'td',
-                                    null,
-                                    user.id
-                                ),
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                    'td',
-                                    null,
-                                    user.name
-                                ),
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                    'td',
-                                    null,
-                                    user.email
-                                ),
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                    'td',
-                                    null,
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                        'button',
-                                        { type: 'button', className: 'btn btn-primary' },
-                                        'Edit'
-                                    ),
-                                    ' ||\xA0',
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                        'button',
-                                        { onClick: function onClick(e) {
-                                                return _this3.deleteUser(user, e);
-                                            }, type: 'button', className: 'btn btn-danger' },
-                                        'Delete'
-                                    )
-                                )
-                            );
+                            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(UserRow, { key: i, i: i, user: user, object: _this3 });
                         })
                     )
                 )
@@ -55989,6 +55934,78 @@ var User = function (_Component) {
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
 /* harmony default export */ __webpack_exports__["default"] = (User);
+
+var UserRow = function (_React$Component) {
+    _inherits(UserRow, _React$Component);
+
+    function UserRow() {
+        _classCallCheck(this, UserRow);
+
+        return _possibleConstructorReturn(this, (UserRow.__proto__ || Object.getPrototypeOf(UserRow)).apply(this, arguments));
+    }
+
+    _createClass(UserRow, [{
+        key: 'render',
+
+        // deleteUser(e, object) {
+        //     console.log(e);
+
+        //     var $this = object;
+
+        //     axios.delete('/api/user/'+e.id).then(response => {
+        //         console.log(response);
+
+        //         const newState = $this.state.data.slice();
+        //         newState.splice(newState.indexOf(e), 1);
+        //         $this.setState ({
+        //             data: newState
+        //         });
+
+        //     }).catch(error => {
+        //         console.log(error);
+        //     });
+        // }
+
+        value: function render() {
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'tr',
+                { key: this.props.i },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'td',
+                    null,
+                    this.props.user.id
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'td',
+                    null,
+                    this.props.user.name
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'td',
+                    null,
+                    this.props.user.email
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'td',
+                    null,
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'button',
+                        { type: 'button', className: 'btn btn-primary' },
+                        'Edit'
+                    ),
+                    ' ||\xA0',
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'button',
+                        { type: 'button', className: 'btn btn-danger' },
+                        'Delete'
+                    )
+                )
+            );
+        }
+    }]);
+
+    return UserRow;
+}(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
 
 if (document.getElementById('app')) {
     __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(User, null), document.getElementById('app'));
