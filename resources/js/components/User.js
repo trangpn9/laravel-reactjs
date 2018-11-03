@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
 export default class User extends Component {
-    constructor() {
+    constructor(props) {
         super(props);
         this.state = {
             data: []
@@ -35,17 +35,18 @@ export default class User extends Component {
                     </thead>
                     <tbody>                        
                         {this.state.data.map((user, i) => (
-                                <UserRow key={i} i={i} user={user} object={this} />                
+                            <UserRow key={i} i={i} user={user} object={this}/>        
                             )
                         )}                                             
                     </tbody>
-                </table>                                
+                </table>                                 
             </div>
         );
     }
 }
 
 class UserRow extends React.Component {
+    
     deleteUser(e, object) {
         console.log(e);
 
@@ -65,23 +66,21 @@ class UserRow extends React.Component {
         });
     }
 
-    render (){
-        return(
+    render() {
+        return (
             <tr key={this.props.i}>
                 <td>{this.props.user.id}</td>
                 <td>{this.props.user.name}</td>
                 <td>{this.props.user.email}</td>
-                <td>
-                    {/* <form className="frmCeratUser">                    
-                        <input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" /> */}
-                        <button type="button" className="btn btn-primary">Edit</button> ||&nbsp;
-                        <button  type="button" className="btn btn-danger">Delete</button>
-                    {/* </form>          */}
+                <td>                                
+                    <a className="btn btn-primary" href={"/user/"+this.props.user.id+"/edit"}>Edit</a> ||&nbsp;
+                    <button onClick={this.deleteUser.bind(this, this.props.user, this.props.object)} type="button" className="btn btn-danger">Delete</button>                                    
                 </td>
             </tr>
         );
     }
-}
+  }
+
 
 if (document.getElementById('app')) {
     ReactDOM.render(<User/>, document.getElementById('app'));
