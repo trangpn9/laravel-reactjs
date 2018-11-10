@@ -39,10 +39,16 @@ export default class Edit extends Component {
     }
 
     submitChange(e) {
+        // e.preventDefault();
         e.preventDefault();
-        console.log(this.state);
 
-        axios.put('/api/user', this.state).then(response => {
+        const data = {
+            name: this.state.name,
+            email: this.state.email,
+            password: this.state.password
+        }
+               
+        axios.patch('/api/user/'+this.props.id, data).then(response => {
             console.log(response);
         }).then(error => {
             console.log(error);
@@ -52,8 +58,9 @@ export default class Edit extends Component {
     render() {
         return (
             <div>
-                <h2>Add new user</h2>
-                <form className="frmCeratUser" onSubmit={this.submitChange.bind(this)}>
+                <h2>Update user</h2>
+                {/* <form className="frmUpdateUser" onSubmit={this.submitChange.bind(this)}> */}
+                <form className="frmUpdateUser">
                     {/* <input type="hidden" name="_token" value="{{csrf_token()}}"/> */}
                     <input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />
                     <div className="form-group">
@@ -68,7 +75,8 @@ export default class Edit extends Component {
                         <label htmlFor="exampleInputPassword1">Password</label>
                         <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" value={this.state.password} onChange={this.handlePasswordChange.bind(this)}/>
                     </div>
-                    <button type="submit" className="btn btn-primary">Update</button>
+                    <button type="submit" className="btn btn-primary" onClick={this.submitChange.bind(this)}>Update</button>
+                    
                 </form>              
             </div>
         );

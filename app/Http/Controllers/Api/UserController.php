@@ -84,8 +84,13 @@ class UserController extends Controller
     {
         $user = User::find($id);
         // $user->delete();
+        if (! $user) {
+            return response()
+            ->json(['error' => 'Error: User not found']);
+        }
+        $user->update($request->all());
 
-        return response()->json('User update successfully!');
+        return response()->json(['message' => 'Success: You have updated the user']);
     }
 
     /**

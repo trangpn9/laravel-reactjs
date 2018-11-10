@@ -56224,10 +56224,16 @@ var Edit = function (_Component) {
     }, {
         key: 'submitChange',
         value: function submitChange(e) {
+            // e.preventDefault();
             e.preventDefault();
-            console.log(this.state);
 
-            axios.put('/api/user', this.state).then(function (response) {
+            var data = {
+                name: this.state.name,
+                email: this.state.email,
+                password: this.state.password
+            };
+
+            axios.patch('/api/user/' + this.props.id, data).then(function (response) {
                 console.log(response);
             }).then(function (error) {
                 console.log(error);
@@ -56242,11 +56248,11 @@ var Edit = function (_Component) {
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'h2',
                     null,
-                    'Add new user'
+                    'Update user'
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'form',
-                    { className: 'frmCeratUser', onSubmit: this.submitChange.bind(this) },
+                    { className: 'frmUpdateUser' },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'hidden', name: '_token', id: 'csrf-token', value: '{{ Session::token() }}' }),
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'div',
@@ -56280,7 +56286,7 @@ var Edit = function (_Component) {
                     ),
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'button',
-                        { type: 'submit', className: 'btn btn-primary' },
+                        { type: 'submit', className: 'btn btn-primary', onClick: this.submitChange.bind(this) },
                         'Update'
                     )
                 )
